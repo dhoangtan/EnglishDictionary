@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_navigation_home"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/bottom_navigation_translate"
+        android:icon="@drawable/ic_translate_24"
+        android:title="@string/title_translate" />
+
+    <item
+        android:id="@+id/bottom_navigation_exercise"
+        android:icon="@drawable/ic_exercise_24"
+        android:title="@string/title_exercise" />
+
+    <item
+        android:id="@+id/bottom_navigation_dictionnary"
+        android:icon="@drawable/ic_dictionary_24"
+        android:title="@string/title_dictionary" />
+</menu>
