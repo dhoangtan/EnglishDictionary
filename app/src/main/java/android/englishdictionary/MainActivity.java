@@ -2,6 +2,7 @@ package android.englishdictionary;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.opencv.android.OpenCVLoader;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
@@ -19,13 +22,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(OpenCVLoader.initDebug())
+            Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
         toolbar = getSupportActionBar();
         BottomNavigationView navigationView= findViewById(R.id.navigation);
         navigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar.setTitle("Home");
         loadFragment(new HomeFragment());
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override

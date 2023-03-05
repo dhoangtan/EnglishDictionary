@@ -13,4 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
-/.idea/
+/.gradle
+/openCV/.cxx
+/openCV/build
+/.idea
