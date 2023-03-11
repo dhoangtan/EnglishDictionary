@@ -1,5 +1,6 @@
 package android.englishdictionary;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         if(OpenCVLoader.initDebug())
             Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
@@ -44,19 +47,19 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.bottom_navigation_translate:
-                    toolbar.setTitle("translate");
-                    fragment = new TranslateFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.bottom_navigation_exercise:
-                    toolbar.setTitle("Exercise");
-                    fragment = new ExerciseFragment();
+                case R.id.bottom_navigation_explore:
+                    toolbar.setTitle("Explore");
+                    fragment = new ExploreFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.bottom_navigation_dictionnary:
-                    toolbar.setTitle("dictionary");
+                    toolbar.setTitle("Dictionary");
                     fragment = new DictionaryFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.bottom_navigation_profile:
+                    toolbar.setTitle("Profile");
+                    fragment = new ProfileFragment();
                     loadFragment(fragment);
                     return true;
             }

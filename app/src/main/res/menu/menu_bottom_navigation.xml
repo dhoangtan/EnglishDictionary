@@ -6,17 +6,17 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/bottom_navigation_translate"
-        android:icon="@drawable/ic_translate_24"
-        android:title="@string/title_translate" />
-
-    <item
-        android:id="@+id/bottom_navigation_exercise"
-        android:icon="@drawable/ic_exercise_24"
-        android:title="@string/title_exercise" />
+        android:id="@+id/bottom_navigation_explore"
+        android:icon="@drawable/ic_explore_24"
+        android:title="@string/title_explore" />
 
     <item
         android:id="@+id/bottom_navigation_dictionnary"
         android:icon="@drawable/ic_dictionary_24"
         android:title="@string/title_dictionary" />
+
+    <item
+        android:id="@+id/bottom_navigation_profile"
+        android:icon="@drawable/ic_profile_24"
+        android:title="@string/title_profile" />
 </menu>
