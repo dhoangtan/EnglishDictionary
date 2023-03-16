@@ -1,12 +1,16 @@
-package android.englishdictionary;
+package android.englishdictionary.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.englishdictionary.fragments.DictionaryFragment;
+import android.englishdictionary.fragments.ExploreFragment;
+import android.englishdictionary.fragments.HomeFragment;
+import android.englishdictionary.fragments.ProfileFragment;
+import android.englishdictionary.R;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -22,9 +26,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.task.core.BaseOptions;
 import org.tensorflow.lite.task.vision.detector.Detection;

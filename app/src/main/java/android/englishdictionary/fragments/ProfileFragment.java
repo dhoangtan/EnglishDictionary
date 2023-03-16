@@ -1,5 +1,6 @@
-package android.englishdictionary;
+package android.englishdictionary.fragments;
 
+import android.englishdictionary.R;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
