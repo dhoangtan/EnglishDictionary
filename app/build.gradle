@@ -46,4 +46,7 @@ dependencies {
     // ML Kit
     implementation 'com.google.mlkit:object-detection-custom:17.0.0'
 
+    // Volley and Gson
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
