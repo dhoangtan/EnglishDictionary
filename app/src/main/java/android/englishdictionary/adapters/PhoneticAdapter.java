@@ -30,7 +30,7 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
     @NonNull
     @Override
     public PhoneticAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.fragment_definition_phonetic_item, null);
+        View view = inflater.inflate(R.layout.fragment_definition_phonetic_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +44,7 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
         return phonetics.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView phoneticTextView;
         Button playAudioButton;

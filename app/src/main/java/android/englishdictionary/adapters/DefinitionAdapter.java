@@ -6,12 +6,14 @@ import android.englishdictionary.models.Definition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DefinitionAdapter extends BaseAdapter {
+public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionAdapter.ViewHolder> {
 
     private List<Definition> definitions;
     private LayoutInflater inflater;
@@ -21,50 +23,32 @@ public class DefinitionAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public int getCount() {
+    public DefinitionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.fragment_definition_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull DefinitionAdapter.ViewHolder holder, int position) {
+        holder.definitionTextView.setText(definitions.get(position).getDefinition());
+        holder.exampleTextView.setText(definitions.get(position).getExample());
+    }
+
+    @Override
+    public int getItemCount() {
         return definitions.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return definitions.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder;
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_definition_item, null);
-            viewHolder = new ViewHolder(
-                    view.findViewById(R.id.fr_definition_definition),
-                    view.findViewById(R.id.fr_definition_example)
-            );
-
-            view.setTag(viewHolder);
-        }
-        else
-            viewHolder = (ViewHolder) view.getTag();
-
-        Definition definition = (Definition) getItem(i);
-        viewHolder.definitionTextView.setText(definition.getDefinition());
-        viewHolder.exampleTextView.setText(definition.getExample());
-        return view;
-    }
-
-    static class ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView definitionTextView;
         TextView exampleTextView;
 
-        public ViewHolder(TextView definitionTextView, TextView exampleTextView) {
-            this.definitionTextView = definitionTextView;
-            this.exampleTextView = exampleTextView;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            definitionTextView = itemView.findViewById(R.id.fr_definition_definition);
+            exampleTextView = itemView.findViewById(R.id.fr_definition_example);
         }
     }
-
 }

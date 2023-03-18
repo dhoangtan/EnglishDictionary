@@ -6,15 +6,15 @@ import android.englishdictionary.models.Word;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class WordAdapter extends BaseAdapter {
+public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     private List<Word> words;
     private Context context;
@@ -26,53 +26,38 @@ public class WordAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public int getCount() {
+    public WordAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.fragment_definition_word_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull WordAdapter.ViewHolder holder, int position) {
+        Word current = words.get(position);
+        holder.wordTextView.setText(current.getWord());
+        holder.phoneticsRecyclerView.setAdapter(new PhoneticAdapter(context, current.getPhonetics()));
+        holder.meaningsRecyclerView.setAdapter(new MeaningAdapter(context, current.getMeanings()));
+
+        holder.phoneticsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL));
+    }
+
+    @Override
+    public int getItemCount() {
         return words.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return words.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder;
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_definition_word_item, null);
-            viewHolder = new ViewHolder(
-                    view.findViewById(R.id.fr_definition_word_item_word_text_view),
-                    view.findViewById(R.id.fr_definition_word_item_phonetics_recycler_view),
-                    view.findViewById(R.id.fr_definition_word_item_meanings_list_view)
-            );
-
-            view.setTag(viewHolder);
-        }
-        else
-            viewHolder = (ViewHolder) view.getTag();
-
-        Word word = words.get(i);
-        viewHolder.wordTextView.setText(word.getWord());
-        viewHolder.phoneticsRecyclerView.setAdapter(new PhoneticAdapter(context, word.getPhonetics()));
-        viewHolder.meaningsListView.setAdapter(new MeaningAdapter(context, word.getMeanings()));
-        return view;
-    }
-
-    static class ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView wordTextView;
         RecyclerView phoneticsRecyclerView;
-        ListView meaningsListView;
+        RecyclerView meaningsRecyclerView;
 
-        ViewHolder(TextView wordTextView, RecyclerView phoneticsRecyclerView, ListView meaningsListView) {
-            this.wordTextView = wordTextView;
-            this.phoneticsRecyclerView = phoneticsRecyclerView;
-            this.meaningsListView = meaningsListView;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            wordTextView = itemView.findViewById(R.id.fr_definition_word_item_word_text_view);
+            phoneticsRecyclerView = itemView.findViewById(R.id.fr_definition_word_item_phonetics_recycler_view);
+            meaningsRecyclerView = itemView.findViewById(R.id.fr_definition_word_item_meanings_list_view);
         }
     }
 }

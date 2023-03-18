@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,12 +36,14 @@
 <!--        app:layout_constraintTop_toTopOf="@id/fr_definition_meaning_item_word"-->
 
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fr_definition_meaning_item_definition_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxHeight="250dp"
 
         tools:listitem="@layout/fragment_definition_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
         app:layout_constraintTop_toBottomOf="@id/fr_definition_meaning_item_part_of_speech"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,6 +54,8 @@
         android:id="@+id/fr_definition_meaning_item_synonyms_antonyms_section"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+
+        android:orientation="horizontal"
 
         android:weightSum="2"
 

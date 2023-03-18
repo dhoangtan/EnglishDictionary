@@ -9,6 +9,8 @@ import android.englishdictionary.fragments.ExploreFragment;
 import android.englishdictionary.fragments.HomeFragment;
 import android.englishdictionary.fragments.ProfileFragment;
 import android.englishdictionary.R;
+import android.englishdictionary.models.Phonetic;
+import android.englishdictionary.models.Word;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.opencv.android.OpenCVLoader;
 import org.tensorflow.lite.support.image.TensorImage;
@@ -37,6 +41,8 @@ import org.tensorflow.lite.task.vision.detector.Detection;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         queue = Volley.newRequestQueue(this);
         requestForPermission();
@@ -157,7 +164,12 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
-                    Log.d(TAG, response);
+                    Gson gson = new Gson();
+                    TypeToken<Collection<Word>> collectionTypeToken = new TypeToken<Collection<Word>>(){};
+                    ArrayList<Word> wordsFromJson = gson.fromJson(response, collectionTypeToken.getType());
+                    DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.frame_container);
+                    dictionaryFragment.wordResult(getApplicationContext(), wordsFromJson);
+                    Log.d(TAG, "RESPONSE COMPLETE");
                 },
                 error -> {
                     Log.d(TAG, error.toString());
