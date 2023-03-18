@@ -2,6 +2,7 @@ package android.englishdictionary.fragments;
 
 import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.MainActivity;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,9 +80,17 @@ public class DictionaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button openCameraButton = view.findViewById(R.id.fr_dictionary_open_camera_btn);
+        Button searchButton = view.findViewById(R.id.fr_dictionary_search_btn);
+        EditText wordEditText = view.findViewById(R.id.fr_dictionary_word_edt);
+
         openCameraButton.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             getActivity().startActivityForResult(intent, 101);
+        });
+
+        searchButton.setOnClickListener(v -> {
+            String word = wordEditText.getText().toString().toLowerCase(Locale.ROOT).trim();
+            ((MainActivity)getActivity()).searchForWord(word);
         });
     }
 }

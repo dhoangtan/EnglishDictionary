@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.opencv.android.OpenCVLoader;
@@ -41,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "DICTIONARY";
     private Bitmap bitmap;
     private ActionBar toolbar;
-    private Button dictionaryFragmentOpenCameraButton;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
 
+        queue = Volley.newRequestQueue(this);
         requestForPermission();
 
         if(OpenCVLoader.initDebug())
@@ -68,16 +73,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
          if (requestCode == CAMERA_CODE && data != null) {
             bitmap = (Bitmap) data.getExtras().get("data");
-//            image.setImageBitmap(bitmap);
-//
-//            mat = new Mat();
-//            Utils.bitmapToMat(bitmap, mat);
-//
-//            Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY);
-//
-//            Utils.matToBitmap(mat, bitmap);
-//            image.setImageBitmap(bitmap);
-
 
             ObjectDetector.ObjectDetectorOptions options = ObjectDetector.ObjectDetectorOptions.builder()
                     .setBaseOptions(BaseOptions.builder().build())
@@ -91,10 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 List<Detection> results = detector.detect(tensorImage);
                 results.forEach(detection -> {
                     detection.getCategories().forEach(category -> {
-                        Log.d(TAG, category.getLabel());
                         Toast.makeText(this, category.getLabel(), Toast.LENGTH_SHORT).show();
+                        searchForWord(category.getLabel());
                     });
-                    detection.getBoundingBox();
                 });
             }
             catch (IOException e) {
@@ -157,5 +151,17 @@ public class MainActivity extends AppCompatActivity {
                 requestForPermission();
             }
         }
+    }
+
+    public void searchForWord(String word) {
+        String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    Log.d(TAG, response);
+                },
+                error -> {
+                    Log.d(TAG, error.toString());
+                });
+        queue.add(stringRequest);
     }
 }
