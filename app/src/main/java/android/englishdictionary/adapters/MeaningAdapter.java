@@ -40,8 +40,6 @@ public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHold
         Meaning current = meanings.get(position);
         holder.partOfSpeechTextView.setText(current.getPartOfSpeech());
         holder.definitionsRecyclerView.setAdapter(new DefinitionAdapter(context, current.getDefinitions()));
-        holder.synonymsListView.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, current.getSynonyms()));
-        holder.antonymsListView.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, current.getAntonyms()));
 
         holder.definitionsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }
@@ -54,15 +52,11 @@ public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView partOfSpeechTextView;
         RecyclerView definitionsRecyclerView;
-        ListView synonymsListView;
-        ListView antonymsListView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             partOfSpeechTextView = itemView.findViewById(R.id.fr_definition_meaning_item_part_of_speech);
-            definitionsRecyclerView = itemView.findViewById(R.id.fr_definition_meaning_item_definition_list_view);
-            synonymsListView = itemView.findViewById(R.id.fr_definition_meaning_item_synonyms_list_view);
-            antonymsListView = itemView.findViewById(R.id.fr_definition_meaning_item_antonyms_list_view);
+            definitionsRecyclerView = itemView.findViewById(R.id.fr_definition_meaning_item_definition_recycler_view);
         }
     }
 }

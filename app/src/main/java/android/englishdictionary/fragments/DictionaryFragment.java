@@ -100,10 +100,14 @@ public class DictionaryFragment extends Fragment {
         searchButton.setOnClickListener(v -> {
             String word = wordEditText.getText().toString().toLowerCase(Locale.ROOT).trim();
             ((MainActivity)getActivity()).searchForWord(word);
+            wordEditText.setText("");
         });
     }
 
     public void wordResult(Context context, List<Word> words) {
+        if (words.isEmpty()) {
+            return;
+        }
         wordDefinitionRecyclerView.setAdapter(new WordAdapter(context, words));
         wordDefinitionRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }

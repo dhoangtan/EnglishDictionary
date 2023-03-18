@@ -7,17 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="15dp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/fr_definition_meaning_item_word"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-
-<!--        android:text="get"-->
-<!--        android:textSize="20sp"-->
-
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"/>-->
-
     <TextView
         android:id="@+id/fr_definition_meaning_item_part_of_speech"
         android:layout_width="wrap_content"
@@ -32,12 +21,8 @@
 
         android:layout_marginStart="10dp"/>
 
-<!--        app:layout_constraintLeft_toRightOf="@id/fr_definition_meaning_item_word"-->
-<!--        app:layout_constraintTop_toTopOf="@id/fr_definition_meaning_item_word"-->
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fr_definition_meaning_item_definition_list_view"
+        android:id="@+id/fr_definition_meaning_item_definition_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="250dp"
@@ -50,33 +35,5 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="10dp"/>
 
-    <LinearLayout
-        android:id="@+id/fr_definition_meaning_item_synonyms_antonyms_section"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-
-        android:orientation="horizontal"
-
-        android:weightSum="2"
-
-        app:layout_constraintTop_toBottomOf="@id/fr_definition_meaning_item_definition_list_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <ListView
-            android:id="@+id/fr_definition_meaning_item_synonyms_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-
-        <ListView
-            android:id="@+id/fr_definition_meaning_item_antonyms_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

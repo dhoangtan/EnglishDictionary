@@ -162,17 +162,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchForWord(String word) {
         String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+        DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.frame_container);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     Gson gson = new Gson();
                     TypeToken<Collection<Word>> collectionTypeToken = new TypeToken<Collection<Word>>(){};
                     ArrayList<Word> wordsFromJson = gson.fromJson(response, collectionTypeToken.getType());
-                    DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.frame_container);
                     dictionaryFragment.wordResult(getApplicationContext(), wordsFromJson);
                     Log.d(TAG, "RESPONSE COMPLETE");
                 },
                 error -> {
-                    Log.d(TAG, error.toString());
+                    dictionaryFragment.wordResult(getApplicationContext(), new ArrayList<>());
                 });
         queue.add(stringRequest);
     }

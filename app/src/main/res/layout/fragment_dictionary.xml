@@ -31,6 +31,10 @@
             android:id="@+id/fr_dictionary_word_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:maxLines="1"
+            android:inputType="text"
+
             android:textSize="20sp"
             android:layout_weight="12.8"/>
 
