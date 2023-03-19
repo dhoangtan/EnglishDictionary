@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "840710841274",
+    "project_id": "englishdictionary-8237a",
+    "storage_bucket": "englishdictionary-8237a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840710841274:android:cbbafa0670ca7ff6db3383",
+        "android_client_info": {
+          "package_name": "android.englishdictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840710841274-fp49pq5v9eba7umgi4atorfe1v3uq036.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw39SH62z-MkJv1mTuHkLC8b4DUtLK20o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840710841274-fp49pq5v9eba7umgi4atorfe1v3uq036.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
