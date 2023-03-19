@@ -1,6 +1,8 @@
 package android.englishdictionary.fragments;
 
+import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.LoginActivity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private ImageView userAvatarImageView;
     private TextView userFullNameTextView, userEmailTextView;
+    private Button editProfileButton, signOutButton;
 
 
     // TODO: Rename and change types of parameters
@@ -86,6 +90,8 @@ public class ProfileFragment extends Fragment {
         userAvatarImageView = view.findViewById(R.id.fr_profile_user_avatar_image_view);
         userFullNameTextView = view.findViewById(R.id.fr_profile_user_full_name_text_view);
         userEmailTextView = view.findViewById(R.id.fr_profile_user_email_text_view);
+        editProfileButton = view.findViewById(R.id.fr_profile_user_edit_profile_button);
+        signOutButton = view.findViewById(R.id.fr_profile_user_sign_out_button);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference documentReference = FirebaseFirestore
@@ -110,5 +116,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        signOutButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        });
     }
 }
