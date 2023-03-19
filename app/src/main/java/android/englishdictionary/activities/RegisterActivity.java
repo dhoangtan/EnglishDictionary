@@ -12,10 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore fireStore;
     private final String TAG = "REGISTER";
 
     @Override
@@ -31,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+        fireStore = FirebaseFirestore.getInstance();
 
         usernameEditText = findViewById(R.id.ac_register_username_edit_text);
         passwordEditText = findViewById(R.id.ac_register_password_edit_text);
@@ -62,7 +70,20 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.w(TAG, "createUserWithEmail:success", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Register successfully.", Toast.LENGTH_SHORT).show();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            Map<String, Object> storedUser = new HashMap<>();
+                            storedUser.put("email", currentUser.getEmail());
+                            storedUser.put("full_name", fullName);
+                            fireStore.collection("users")
+                                    .document(currentUser.getUid())
+                                    .set(storedUser)
+                                    .addOnSuccessListener(success -> {
+                                        Toast.makeText(RegisterActivity.this, "Register successfully.", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(failure -> {
+                                        Log.d(TAG, failure.toString());
+                                    });
+
                             finish();
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

@@ -36,6 +36,11 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PhoneticAdapter.ViewHolder holder, int position) {
+        Phonetic current = phonetics.get(position);
+        if (current.getText() == null) {
+            holder.phoneticTextView.setVisibility(View.GONE);
+            holder.playAudioButton.setVisibility(View.GONE);
+        }
         holder.phoneticTextView.setText(phonetics.get(position).getText());
     }
 
