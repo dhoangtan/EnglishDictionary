@@ -20,4 +20,6 @@
     <string name="example_full_name">John Doe</string>
     <string name="edit_profile">Edit profile</string>
     <string name="sign_out">Sign out</string>
+    <string name="reset_password">Reset password</string>
+    <string name="ok">OK</string>
 </resources>
