@@ -3,6 +3,8 @@ package android.englishdictionary.adapters;
 import android.content.Context;
 import android.englishdictionary.R;
 import android.englishdictionary.models.Phonetic;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHolder> {
@@ -25,6 +28,7 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
         this.phonetics = phonetics;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        phonetics.removeIf(phonetic -> phonetic.getText() == null);
     }
 
     @NonNull
@@ -37,11 +41,8 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull PhoneticAdapter.ViewHolder holder, int position) {
         Phonetic current = phonetics.get(position);
-        if (current.getText() == null) {
-            holder.phoneticTextView.setVisibility(View.GONE);
-            holder.playAudioButton.setVisibility(View.GONE);
-        }
-        holder.phoneticTextView.setText(phonetics.get(position).getText());
+        holder.phoneticTextView.setText(current.getText());
+        holder.audio = current.getAudio();
     }
 
     @Override
@@ -53,6 +54,7 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
 
         TextView phoneticTextView;
         Button playAudioButton;
+        String audio;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,7 +63,20 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
 
             // TODO: Implement play audio feature
             playAudioButton.setOnClickListener(view -> {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                if (audio.isEmpty()) {
+                    Toast.makeText(context, "Oops, We do not have the audio for this phonetics :(", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(audio);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
