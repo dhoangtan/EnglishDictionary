@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">English_dictionary</string>
+    <string name="app_name">Dicto</string>
     <string name="title_home">Home</string>
     <string name="title_translate">Translate</string>
     <string name="title_dictionary">Dictionary</string>
@@ -11,10 +11,11 @@
     <string name="example">Example:</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
-    <string name="example_username">example@gmail.com</string>
+    <string name="example_username">john.doe@gmail.com</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm\nPassword</string>
     <string name="login">Login</string>
-    <string name="create_account">Create Account</string>
+    <string name="create_account">Create account</string>
     <string name="forgot_password">Forgot password</string>
+    <string name="example_full_name">John Doe</string>
 </resources>
