@@ -38,8 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.ac_login_password_edit_text);
         loginButton = findViewById(R.id.ac_login_login_button);
         createAccountTextView = findViewById(R.id.ac_login_create_account_text_view);
+        forgotPasswordTextView = findViewById(R.id.ac_login_forgot_password_text_view);
 
-        // TODO: Implement forgot password feature
+        forgotPasswordTextView.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            startActivity(intent);
+        });
 
         loginButton.setOnClickListener(view -> {
             String email, password;

@@ -145,6 +145,8 @@
         android:layout_height="wrap_content"
 
         android:text="@string/register"
+        android:textSize="20sp"
+
 
         app:layout_constraintTop_toBottomOf="@+id/ac_register_full_name_edit_text"
         app:layout_constraintLeft_toLeftOf="parent"

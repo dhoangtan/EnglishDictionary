@@ -9,14 +9,11 @@ import android.englishdictionary.fragments.ExploreFragment;
 import android.englishdictionary.fragments.HomeFragment;
 import android.englishdictionary.fragments.ProfileFragment;
 import android.englishdictionary.R;
-import android.englishdictionary.models.Phonetic;
 import android.englishdictionary.models.Word;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +31,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.opencv.android.OpenCVLoader;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.task.core.BaseOptions;
 import org.tensorflow.lite.task.vision.detector.Detection;
@@ -64,12 +60,10 @@ public class MainActivity extends AppCompatActivity {
         requestForPermission();
 
         toolbar = getSupportActionBar();
-        BottomNavigationView navigationView= findViewById(R.id.navigation);
+        BottomNavigationView navigationView = findViewById(R.id.ac_main_bottom_navigation);
         navigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar.setTitle("Home");
         loadFragment(new HomeFragment());
-
-
     }
 
     @Override
@@ -136,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
+        transaction.replace(R.id.ac_main_frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -159,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchForWord(String word) {
         String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
-        DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.frame_container);
+        DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.ac_main_frame_container);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     Gson gson = new Gson();

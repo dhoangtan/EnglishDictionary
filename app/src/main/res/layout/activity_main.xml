@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -8,22 +9,27 @@
     tools:context=".activities.MainActivity">
 
     <FrameLayout
-        android:id="@+id/frame_container"
+        android:id="@+id/ac_main_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ac_main_bottom_navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/ac_main_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_bottom_navigation" />
+        app:menu="@menu/menu_bottom_navigation"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 <!--        android:background="?android:attr/windowBackground"-->
 <!--        android:foreground="?attr/selectableItemBackground"-->
 <!--        app:itemBackground="@color/design_default_color_primary_variant"-->
 <!--        app:itemIconTint="@android:color/white"-->
 <!--        app:itemTextColor="@android:color/white"-->
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
