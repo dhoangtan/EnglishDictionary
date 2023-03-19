@@ -19,11 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        android:foreground="?attr/selectableItemBackground"
-        app:itemBackground="@color/bgBottomNavigation"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
         app:menu="@menu/menu_bottom_navigation" />
+<!--        android:background="?android:attr/windowBackground"-->
+<!--        android:foreground="?attr/selectableItemBackground"-->
+<!--        app:itemBackground="@color/design_default_color_primary_variant"-->
+<!--        app:itemIconTint="@android:color/white"-->
+<!--        app:itemTextColor="@android:color/white"-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         requestForPermission();
 
-        if(OpenCVLoader.initDebug())
-            Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
         toolbar = getSupportActionBar();
         BottomNavigationView navigationView= findViewById(R.id.navigation);
         navigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener);

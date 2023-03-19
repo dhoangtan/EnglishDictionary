@@ -9,4 +9,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="example">Example:</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="example_username">example@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm\nPassword</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="forgot_password">Forgot password</string>
 </resources>

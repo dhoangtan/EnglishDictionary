@@ -11,7 +11,6 @@
         android:id="@+id/fr_dictionary_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
         android:orientation="horizontal"
         android:weightSum="13"
 
@@ -22,10 +21,11 @@
 
         <Button
             android:id="@+id/fr_dictionary_open_camera_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_weight="0.1"
-            android:background="@drawable/ic_camera_24"/>
+            android:background="@drawable/ic_camera_24"
+            android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/fr_dictionary_word_edit_text"
@@ -40,10 +40,11 @@
 
         <Button
             android:id="@+id/fr_dictionary_search_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_weight="0.11"
-            android:background="@drawable/ic_search_24"/>
+            android:background="@drawable/ic_search_24"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

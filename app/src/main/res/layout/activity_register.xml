@@ -1,9 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegisterActivity">
+    tools:context=".activities.RegisterActivity"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/register"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textAllCaps="true"
+
+
+        app:layout_constraintBottom_toTopOf="@id/ac_register_username_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="50dp"
+        />
+
+    <TextView
+        android:id="@+id/ac_register_username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/username"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:layout_marginTop="200dp"
+        />
+
+    <EditText
+        android:id="@+id/ac_register_username_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/example_username"
+        android:autofillHints="emailAddress"
+        android:maxLines="1"
+        android:inputType="text"
+
+        app:layout_constraintTop_toTopOf="@id/ac_register_username_label"
+        app:layout_constraintBottom_toBottomOf="@id/ac_register_username_label"
+        app:layout_constraintLeft_toRightOf="@id/ac_register_username_label"
+
+        android:layout_marginStart="30dp"
+        />
+
+
+    <TextView
+        android:id="@+id/ac_register_password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/password"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_register_username_label"
+        app:layout_constraintBottom_toBottomOf="@id/ac_register_password_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_username_label"
+
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/ac_register_password_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:maxLines="1"
+        android:inputType="textWebPassword"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_register_username_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_username_edit_text"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/ac_register_confirm_password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/confirm_password"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_register_password_label"
+        app:layout_constraintBottom_toBottomOf="@id/ac_register_confirm_password_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_password_label"
+
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:id="@+id/ac_register_confirm_password_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:maxLines="1"
+        android:inputType="textWebPassword"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_register_password_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_password_edit_text"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/ac_register_full_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Full name"
+        android:textSize="20sp"
+
+
+        app:layout_constraintTop_toTopOf="@id/ac_register_full_name_edit_text"
+        app:layout_constraintBottom_toBottomOf="@id/ac_register_full_name_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_confirm_password_label"
+        />
+
+    <EditText
+        android:id="@+id/ac_register_full_name_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_register_confirm_password_edit_text"
+        app:layout_constraintLeft_toLeftOf="@id/ac_register_confirm_password_edit_text"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <Button
+        android:id="@+id/ac_register_register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/register"
+
+        app:layout_constraintTop_toBottomOf="@+id/ac_register_full_name_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
