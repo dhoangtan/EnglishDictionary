@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.EditProfileActivity"
+
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/ac_edit_profile_full_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/full_name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:layout_marginTop="150dp"
+        />
+
+    <EditText
+        android:id="@+id/ac_edit_profile_full_name_edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/example_full_name"
+
+        app:layout_constraintTop_toTopOf="@id/ac_edit_profile_full_name_label"
+        app:layout_constraintLeft_toRightOf="@id/ac_edit_profile_full_name_label"
+        app:layout_constraintBottom_toBottomOf="@id/ac_edit_profile_full_name_label"
+
+        android:layout_marginStart="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

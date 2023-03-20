@@ -74,6 +74,10 @@ public class RegisterActivity extends AppCompatActivity {
                             Map<String, Object> storedUser = new HashMap<>();
                             storedUser.put("email", currentUser.getEmail());
                             storedUser.put("full_name", fullName);
+                            storedUser.put("gender", 0);
+                            storedUser.put("level", 0);
+                            storedUser.put("occupation", 0);
+
                             fireStore.collection("users")
                                     .document(currentUser.getUid())
                                     .set(storedUser)

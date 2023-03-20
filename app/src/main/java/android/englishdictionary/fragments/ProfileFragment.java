@@ -3,6 +3,8 @@ package android.englishdictionary.fragments;
 import android.content.Intent;
 import android.englishdictionary.R;
 import android.englishdictionary.activities.LoginActivity;
+import android.englishdictionary.helpers.LevelEnum;
+import android.englishdictionary.helpers.OccupationEnum;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,8 +39,8 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private ImageView userAvatarImageView;
-    private TextView userFullNameTextView, userEmailTextView;
+    private ImageView userAvatarImageView, userGenderImageView;
+    private TextView userFullNameTextView, userEmailTextView, userLevelTextView, userOccupationTextView;
     private Button editProfileButton, signOutButton;
 
 
@@ -90,6 +92,9 @@ public class ProfileFragment extends Fragment {
         userAvatarImageView = view.findViewById(R.id.fr_profile_user_avatar_image_view);
         userFullNameTextView = view.findViewById(R.id.fr_profile_user_full_name_text_view);
         userEmailTextView = view.findViewById(R.id.fr_profile_user_email_text_view);
+        userLevelTextView = view.findViewById(R.id.fr_profile_user_level_text_view);
+        userOccupationTextView = view.findViewById(R.id.fr_profile_user_occupation_text_view);
+        userGenderImageView = view.findViewById(R.id.fr_profile_user_gender_image_view);
         editProfileButton = view.findViewById(R.id.fr_profile_user_edit_profile_button);
         signOutButton = view.findViewById(R.id.fr_profile_user_sign_out_button);
 
@@ -108,13 +113,39 @@ public class ProfileFragment extends Fragment {
                         Map<String,Object> data = document.getData();
                         String email = data.get("email").toString();
                         String fullName = data.get("full_name").toString();
+                        int gender = Integer.parseInt(data.get("gender").toString());
+                        int level = Integer.parseInt(data.get("level").toString());
+                        int occupation = Integer.parseInt(data.get("occupation").toString());
 
                         userFullNameTextView.setText(fullName);
                         userEmailTextView.setText(email);
+                        userLevelTextView.setText(LevelEnum.values()[level].toString());
+                        userOccupationTextView.setText(OccupationEnum.values()[occupation].toString());
+
+                        switch (gender) {
+                            case 1: {
+                                userGenderImageView.setImageResource(R.drawable.ic_male_24);
+                                break;
+                            }
+                            case 2: {
+                                userGenderImageView.setImageResource(R.drawable.ic_female_24);
+                                break;
+                            }
+                            case 3: {
+                                userGenderImageView.setImageResource(R.drawable.ic_transgender_24);
+                                break;
+                            }
+                            default: {
+                                userGenderImageView.setImageResource(R.drawable.ic_question_mark_24);
+                                break;
+                            }
+                        }
                     }
                 }
             }
         });
+
+        userAvatarImageView.setImageResource(R.drawable.avatar);
 
         signOutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
