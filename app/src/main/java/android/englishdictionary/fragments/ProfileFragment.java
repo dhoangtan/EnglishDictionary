@@ -2,6 +2,7 @@ package android.englishdictionary.fragments;
 
 import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.EditProfileActivity;
 import android.englishdictionary.activities.LoginActivity;
 import android.englishdictionary.helpers.LevelEnum;
 import android.englishdictionary.helpers.OccupationEnum;
@@ -146,6 +147,11 @@ public class ProfileFragment extends Fragment {
         });
 
         userAvatarImageView.setImageResource(R.drawable.avatar);
+
+        editProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
+            startActivity(intent);
+        });
 
         signOutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();

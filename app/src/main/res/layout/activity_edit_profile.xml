@@ -10,6 +10,22 @@
     android:padding="20dp">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/edit_profile_title"
+        android:textSize="30sp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toTopOf="@id/ac_edit_profile_full_name_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:layout_marginBottom="50dp"
+        />
+
+    <TextView
         android:id="@+id/ac_edit_profile_full_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,5 +52,101 @@
         app:layout_constraintBottom_toBottomOf="@id/ac_edit_profile_full_name_label"
 
         android:layout_marginStart="30dp"/>
+
+    <TextView
+        android:id="@+id/ac_edit_profile_gender_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/gender"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_profile_full_name_label"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_label"
+        android:layout_marginTop="30dp"
+        />
+
+    <RadioGroup
+        android:id="@+id/ac_edit_profile_gender_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ac_edit_profile_gender_label"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_edit_text"
+        >
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/ac_edit_profile_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/level"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_profile_gender_radio_group"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_label"
+        android:layout_marginTop="30dp"
+        />
+
+    <RadioGroup
+        android:id="@+id/ac_edit_profile_level_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ac_edit_profile_level_label"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_edit_text"
+        >
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/ac_edit_profile_occupation_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/occupation"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_profile_level_radio_group"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_label"
+        android:layout_marginTop="30dp"
+        />
+
+    <RadioGroup
+        android:id="@+id/ac_edit_profile_occupation_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ac_edit_profile_occupation_label"
+        app:layout_constraintLeft_toLeftOf="@id/ac_edit_profile_full_name_edit_text"
+        >
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/ac_edit_profile_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/save"
+        android:textSize="17sp"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_profile_occupation_radio_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ac_edit_profile_cancel_button"
+        android:layout_marginTop="40dp"/>
+
+    <Button
+        android:id="@+id/ac_edit_profile_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/cancel"
+        android:textSize="17sp"
+        android:backgroundTint="@color/danger"
+
+        app:layout_constraintTop_toTopOf="@id/ac_edit_profile_save_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ac_edit_profile_save_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

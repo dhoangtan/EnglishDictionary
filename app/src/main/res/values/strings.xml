@@ -29,4 +29,7 @@
     <string name="occupation">Occupation</string>
     <string name="occupation_example">Business</string>
     <string name="log_out">Log out</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit_profile_title">Edit your profile</string>
 </resources>
