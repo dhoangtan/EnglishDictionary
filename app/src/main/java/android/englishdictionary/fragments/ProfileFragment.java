@@ -6,12 +6,14 @@ import android.englishdictionary.activities.EditProfileActivity;
 import android.englishdictionary.activities.LoginActivity;
 import android.englishdictionary.helpers.LevelEnum;
 import android.englishdictionary.helpers.OccupationEnum;
+import android.englishdictionary.models.ApplicationUser;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +45,7 @@ public class ProfileFragment extends Fragment {
     private ImageView userAvatarImageView, userGenderImageView;
     private TextView userFullNameTextView, userEmailTextView, userLevelTextView, userOccupationTextView;
     private Button editProfileButton, signOutButton;
-
-
+    private ApplicationUser appUser;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -98,48 +99,55 @@ public class ProfileFragment extends Fragment {
         userGenderImageView = view.findViewById(R.id.fr_profile_user_gender_image_view);
         editProfileButton = view.findViewById(R.id.fr_profile_user_edit_profile_button);
         signOutButton = view.findViewById(R.id.fr_profile_user_sign_out_button);
+    }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    @Override
+    public void onResume() {
+        super.onResume();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        appUser = new ApplicationUser(firebaseUser);
         DocumentReference documentReference = FirebaseFirestore
                 .getInstance()
                 .collection("users")
-                .document(user.getUid());
+                .document(firebaseUser.getUid());
 
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Map<String,Object> data = document.getData();
-                        String email = data.get("email").toString();
-                        String fullName = data.get("full_name").toString();
-                        int gender = Integer.parseInt(data.get("gender").toString());
-                        int level = Integer.parseInt(data.get("level").toString());
-                        int occupation = Integer.parseInt(data.get("occupation").toString());
+        documentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Map<String,Object> data = document.getData();
+                    String email = data.get("email").toString();
+                    String fullName = data.get("full_name").toString();
+                    int gender = Integer.parseInt(data.get("gender").toString());
+                    int level = Integer.parseInt(data.get("level").toString());
+                    int occupation = Integer.parseInt(data.get("occupation").toString());
 
-                        userFullNameTextView.setText(fullName);
-                        userEmailTextView.setText(email);
-                        userLevelTextView.setText(LevelEnum.values()[level].toString());
-                        userOccupationTextView.setText(OccupationEnum.values()[occupation].toString());
+                    appUser.setFullName(fullName);
+                    appUser.setGender(gender);
+                    appUser.setLevel(level);
+                    appUser.setOccupation(occupation);
 
-                        switch (gender) {
-                            case 1: {
-                                userGenderImageView.setImageResource(R.drawable.ic_male_24);
-                                break;
-                            }
-                            case 2: {
-                                userGenderImageView.setImageResource(R.drawable.ic_female_24);
-                                break;
-                            }
-                            case 3: {
-                                userGenderImageView.setImageResource(R.drawable.ic_transgender_24);
-                                break;
-                            }
-                            default: {
-                                userGenderImageView.setImageResource(R.drawable.ic_question_mark_24);
-                                break;
-                            }
+                    userFullNameTextView.setText(fullName);
+                    userEmailTextView.setText(email);
+                    userLevelTextView.setText(LevelEnum.values()[level].toString());
+                    userOccupationTextView.setText(OccupationEnum.values()[occupation].toString());
+
+                    switch (gender) {
+                        case 1: {
+                            userGenderImageView.setImageResource(R.drawable.ic_male_24);
+                            break;
+                        }
+                        case 2: {
+                            userGenderImageView.setImageResource(R.drawable.ic_female_24);
+                            break;
+                        }
+                        case 3: {
+                            userGenderImageView.setImageResource(R.drawable.ic_transgender_24);
+                            break;
+                        }
+                        default: {
+                            userGenderImageView.setImageResource(R.drawable.ic_question_mark_24);
+                            break;
                         }
                     }
                 }
@@ -150,6 +158,10 @@ public class ProfileFragment extends Fragment {
 
         editProfileButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
+            Bundle bundle = new Bundle();
+            Log.d("USER_DEBUG", appUser.getFullName());
+            bundle.putParcelable("user", appUser);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 
