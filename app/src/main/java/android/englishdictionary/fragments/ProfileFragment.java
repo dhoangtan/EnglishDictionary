@@ -1,12 +1,16 @@
 package android.englishdictionary.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.englishdictionary.R;
 import android.englishdictionary.activities.EditProfileActivity;
 import android.englishdictionary.activities.LoginActivity;
+import android.englishdictionary.activities.MainActivity;
 import android.englishdictionary.helpers.LevelEnum;
 import android.englishdictionary.helpers.OccupationEnum;
 import android.englishdictionary.models.ApplicationUser;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,15 +24,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 /**
@@ -154,7 +165,25 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        userAvatarImageView.setImageResource(R.drawable.avatar);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/avatars/" + appUser.getUser().getUid() + "/avatar.jpg");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                userAvatarImageView.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            }
+        });
+
+        userAvatarImageView.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            getActivity().startActivityForResult(intent, MainActivity.LOCAL_PICTURE_CODE);
+        });
 
         editProfileButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity().getApplicationContext(), EditProfileActivity.class);
@@ -171,5 +200,42 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
             getActivity().finish();
         });
+    }
+
+    public void updateAvatar(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] uploadData = baos.toByteArray();
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference("images/avatars/" + appUser.getUser().getUid() + "/avatar.jpg");
+        UploadTask uploadTask = storageReference.putBytes(uploadData);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getActivity().getApplicationContext(), "There's was an error when uploading file", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getActivity().getApplicationContext(), "Update avatar successfully", Toast.LENGTH_SHORT).show();
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/avatars/" + appUser.getUser().getUid() + "/avatar.jpg");
+                final long ONE_MEGABYTE = 1024 * 1024;
+                storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        userAvatarImageView.setImageBitmap(bitmap);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Failed to load user avatar", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
     }
 }

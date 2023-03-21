@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.englishdictionary.R;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,7 +22,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,12 +89,25 @@ public class RegisterActivity extends AppCompatActivity {
                                     .document(currentUser.getUid())
                                     .set(storedUser)
                                     .addOnSuccessListener(success -> {
-                                        Toast.makeText(RegisterActivity.this, "Register successfully.", Toast.LENGTH_SHORT).show();
                                     })
                                     .addOnFailureListener(failure -> {
                                         Log.d(TAG, failure.toString());
                                     });
 
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            byte[] uploadData = baos.toByteArray();
+
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference storageReference = storage.getReference("images/avatars/" + currentUser.getUid() + "/avatar.jpg");
+                            UploadTask uploadTask = storageReference.putBytes(uploadData);
+                            uploadTask.addOnFailureListener(exception -> {
+                                Log.d(TAG, exception.toString());
+                            }).addOnSuccessListener(taskSnapshot -> {
+                            });
+
+                            Toast.makeText(RegisterActivity.this, "Register successfully.", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -96,6 +116,8 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
     }
 
     private boolean validateField(String email, String password, String confirmPassword, String fullName) {

@@ -12,6 +12,7 @@ import android.englishdictionary.R;
 import android.englishdictionary.models.Word;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,6 +39,7 @@ import org.tensorflow.lite.task.core.BaseOptions;
 import org.tensorflow.lite.task.vision.detector.Detection;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,8 +47,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int CAMERA_CODE = 101;
-    private static final int CAMERA_PERMISSION_CODE = 102;
+    public static final int CAMERA_CODE = 101;
+    public static final int CAMERA_PERMISSION_CODE = 102;
+    public static final int LOCAL_PICTURE_CODE = 103;
     private static final String TAG = "DICTIONARY";
     private Bitmap bitmap;
     private ActionBar toolbar;
@@ -94,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+         if (requestCode == LOCAL_PICTURE_CODE && data != null) {
+             try {
+                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+
+                 ((ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.ac_main_frame_container)).updateAvatar(bitmap);
+             } catch (IOException e) {
+                 throw new RuntimeException(e);
+             }
+         }
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

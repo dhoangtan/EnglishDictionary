@@ -94,7 +94,7 @@ public class DictionaryFragment extends Fragment {
 
         openCameraButton.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            getActivity().startActivityForResult(intent, 101);
+            getActivity().startActivityForResult(intent, MainActivity.CAMERA_CODE);
         });
 
         searchButton.setOnClickListener(v -> {
