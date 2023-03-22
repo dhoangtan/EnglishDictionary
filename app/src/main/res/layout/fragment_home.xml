@@ -4,36 +4,174 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:orientation="vertical"
+    android:background="@color/head_color">
+    <TextView
+        android:id="@+id/tv_english"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="English"
+        android:textSize="18sp"
+        android:layout_marginLeft="10pt">
+    </TextView>
+    <TextView
+        android:id="@+id/tv_dictionary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dictionary"
+        android:textSize="18sp"
+        android:layout_marginLeft="10pt"
+        android:layout_below="@id/tv_english">
+    </TextView>
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <SearchView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:src="@tools:sample/avatars" />
+        android:layout_below="@+id/tv_dictionary"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_view_home">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="Welcome"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="MissingConstraints"></TextView>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Than Trấn Nghiệp"
+            android:textSize="27sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome"
+            tools:ignore="MissingConstraints"></TextView>
+
+        <TextView
+            android:id="@+id/tv_my_wordList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="My word list"
+            android:textSize="27sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            tools:ignore="MissingConstraints"></TextView>
+
+        <LinearLayout
+            android:id="@+id/layout_linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:background="@drawable/custom_bg_create_word_list"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_wordList"
+            tools:ignore="MissingConstraints"
+            android:orientation="vertical"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp">
+            <TextView
+                android:id="@+id/tv_text_wordList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="20dp"
+                android:text="You haven't create a word list yet."
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:ignore="MissingConstraints"></TextView>
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="Create word list"
+                android:textSize="20sp">
+
+            </Button>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_my_wordList_of_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:textSize="27sp"
+            android:paddingLeft="20dp"
+            android:text="Word of the day"
+            app:layout_constraintTop_toBottomOf="@id/layout_linear1">
+        </TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_constrain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:background="@drawable/custom_bg_add_wordlist"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_wordList_of_day"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp">
+            <TextView
+                android:id="@+id/tv_text_spelling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="30dp"
+                android:text="equality"
+                android:textStyle="bold"
+                android:paddingLeft="20dp"
+                app:layout_constraintLeft_toLeftOf="parent">
+            </TextView>
+            <TextView
+                android:id="@+id/tv_text_reading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="noun"
+                android:paddingLeft="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_text_spelling">
+            </TextView>
 
 
+            <TextView
+                android:id="@+id/tv_text_dictionary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="30dp"
+                android:text="The right of different groups of people to have a similar social position and receive the same treatment"
+                android:paddingLeft="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_text_reading">
+            </TextView>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to word list"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_text_dictionary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+            </Button>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
