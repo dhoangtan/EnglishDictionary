@@ -41,7 +41,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
         Word current = words.get(position);
         holder.wordTextView.setText(current.getWord());
         holder.phoneticsRecyclerView.setAdapter(new PhoneticAdapter(context, current.getPhonetics()));
-        holder.meaningsRecyclerView.setAdapter(new MeaningAdapter(context, current.getMeanings(), fragmentManager));
+        holder.meaningsRecyclerView.setAdapter(new MeaningAdapter(context,current, current.getMeanings(), fragmentManager));
 
         holder.phoneticsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL));
     }

@@ -7,6 +7,7 @@ import android.englishdictionary.activities.MainActivity;
 import android.englishdictionary.fragments.ChooseWordListBottomSheetFragment;
 import android.englishdictionary.fragments.DictionaryFragment;
 import android.englishdictionary.models.Definition;
+import android.englishdictionary.models.Word;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +27,15 @@ import java.util.List;
 
 public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionAdapter.ViewHolder> {
 
+    private Word word;
     private List<Definition> definitions;
     private LayoutInflater inflater;
-    private Context context;
     private FragmentManager fragmentManager;
 
-    public DefinitionAdapter(Context context, List<Definition> definitions, FragmentManager fragmentManager) {
+    public DefinitionAdapter(Context context, Word word, List<Definition> definitions, FragmentManager fragmentManager) {
+        this.word = word;
         this.definitions = definitions;
         inflater = LayoutInflater.from(context);
-        this.context = context;
         this.fragmentManager = fragmentManager;
     }
 
@@ -52,15 +53,15 @@ public class DefinitionAdapter extends RecyclerView.Adapter<DefinitionAdapter.Vi
             holder.exampleTitleTextView.setVisibility(View.GONE);
             holder.exampleTextView.setVisibility(View.GONE);
         }
-        holder.definitionTextView.setText(definitions.get(position).getDefinition());
-        holder.exampleTextView.setText(definitions.get(position).getExample());
+        holder.definitionTextView.setText(current.getDefinition());
+        holder.exampleTextView.setText(current.getExample());
         holder.addToWordListButton.setOnClickListener(view -> {
-            showBottomSheet();
+            showBottomSheet(current.getDefinition(), current.getExample());
         });
     }
 
-    public void showBottomSheet() {
-        ChooseWordListBottomSheetFragment bottomSheet = new ChooseWordListBottomSheetFragment();
+    public void showBottomSheet(String definition, String example) {
+        ChooseWordListBottomSheetFragment bottomSheet = ChooseWordListBottomSheetFragment.newInstance(word, definition);
         bottomSheet.show(fragmentManager, bottomSheet.getTag());
     }
 

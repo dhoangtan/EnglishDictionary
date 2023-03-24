@@ -3,6 +3,7 @@ package android.englishdictionary.adapters;
 import android.content.Context;
 import android.englishdictionary.R;
 import android.englishdictionary.models.Meaning;
+import android.englishdictionary.models.Word;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHolder> {
-
+    private Word word;
     private List<Meaning> meanings;
     private LayoutInflater inflater;
     private Context context;
     private FragmentManager fragmentManager;
 
-    public MeaningAdapter(Context context, List<Meaning> meanings, FragmentManager fragmentManager) {
+    public MeaningAdapter(Context context, Word word, List<Meaning> meanings, FragmentManager fragmentManager) {
+        this.word = word;
         this.meanings = meanings;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -42,8 +44,7 @@ public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHold
     public void onBindViewHolder(@NonNull MeaningAdapter.ViewHolder holder, int position) {
         Meaning current = meanings.get(position);
         holder.partOfSpeechTextView.setText(current.getPartOfSpeech());
-        holder.definitionsRecyclerView.setAdapter(new DefinitionAdapter(context, current.getDefinitions(), fragmentManager));
-
+        holder.definitionsRecyclerView.setAdapter(new DefinitionAdapter(context, word, current.getDefinitions(), fragmentManager));
         holder.definitionsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }
 

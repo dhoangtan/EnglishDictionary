@@ -15,7 +15,6 @@
         android:text="@string/my_word_list"
         android:textSize="17sp"
 
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -31,5 +30,30 @@
         app:layout_constraintTop_toBottomOf="@id/fr_explore_my_word_list_label"
         app:layout_constraintLeft_toLeftOf="@id/fr_explore_my_word_list_label"
         android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/fr_explore_cambridge_word_list_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/cambridge_word_lists"
+        android:textSize="17sp"
+
+        app:layout_constraintTop_toBottomOf="@id/fr_explore_my_word_list_recycler_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fr_explore_cambridge_word_list_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        app:layout_constraintTop_toBottomOf="@id/fr_explore_cambridge_word_list_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

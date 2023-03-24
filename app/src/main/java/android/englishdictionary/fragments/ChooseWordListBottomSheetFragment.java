@@ -2,7 +2,9 @@ package android.englishdictionary.fragments;
 
 import android.content.Context;
 import android.englishdictionary.R;
+import android.englishdictionary.models.Word;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ChooseWordListBottomSheetFragment extends BottomSheetDialogFragment{
+    final String TAG = "CHOOSE_WORD_LIST_FRAGMENT";
     private Button createWordListButton, cancelButton;
     private RecyclerView wordListRecyclerView;
 
+    private Word word;
+    private String definition;
 
-    public static ChooseWordListBottomSheetFragment newInstance() {
-        return new ChooseWordListBottomSheetFragment();
+    public ChooseWordListBottomSheetFragment(Word word, String definition) {
+        this.word = word;
+        this.definition = definition;
+    }
+
+    public static ChooseWordListBottomSheetFragment newInstance(Word word, String definition) {
+        return new ChooseWordListBottomSheetFragment(word, definition);
     }
 
     @Nullable
@@ -40,6 +50,8 @@ public class ChooseWordListBottomSheetFragment extends BottomSheetDialogFragment
         cancelButton.setOnClickListener(v -> {
             dismiss();
         });
+
+        Log.d(TAG, "Data:\n" + word.getWord() + "\n" + definition);
     }
 
     @Override
@@ -51,16 +63,4 @@ public class ChooseWordListBottomSheetFragment extends BottomSheetDialogFragment
     public void onDetach() {
         super.onDetach();
     }
-
-//    @Override
-//    public void onClick(View view) {
-//        TextView tvSelected = (TextView) view;
-//        itemClickListener.onItemClick(tvSelected.getText().toString());
-//        dismiss();
-//    }
-//
-//    public interface ItemClickListener {
-//        void onItemClick(String item);
-//    }
-
 }
