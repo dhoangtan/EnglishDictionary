@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,11 +22,13 @@ public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHold
     private List<Meaning> meanings;
     private LayoutInflater inflater;
     private Context context;
+    private FragmentManager fragmentManager;
 
-    public MeaningAdapter(Context context, List<Meaning> meanings) {
+    public MeaningAdapter(Context context, List<Meaning> meanings, FragmentManager fragmentManager) {
         this.meanings = meanings;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -39,7 +42,7 @@ public class MeaningAdapter extends RecyclerView.Adapter<MeaningAdapter.ViewHold
     public void onBindViewHolder(@NonNull MeaningAdapter.ViewHolder holder, int position) {
         Meaning current = meanings.get(position);
         holder.partOfSpeechTextView.setText(current.getPartOfSpeech());
-        holder.definitionsRecyclerView.setAdapter(new DefinitionAdapter(context, current.getDefinitions()));
+        holder.definitionsRecyclerView.setAdapter(new DefinitionAdapter(context, current.getDefinitions(), fragmentManager));
 
         holder.definitionsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }

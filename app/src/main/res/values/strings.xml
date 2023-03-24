@@ -32,4 +32,8 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="edit_profile_title">Edit your profile</string>
+    <string name="add_to_word_list">Add to word list</string>
+    <string name="my_word_list">My word list</string>
+    <string name="new_word_list">New word list</string>
+    <string name="word_list_name_example">Word list name</string>
 </resources>

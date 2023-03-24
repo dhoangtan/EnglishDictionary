@@ -23,56 +23,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DictionaryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DictionaryFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private Button openCameraButton;
     private Button searchButton;
     private EditText wordEditText;
     private RecyclerView wordDefinitionRecyclerView;
 
     public DictionaryFragment() {
-        // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DictionaryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DictionaryFragment newInstance(String param1, String param2) {
-        DictionaryFragment fragment = new DictionaryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-
-        return fragment;
+        return new DictionaryFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -108,7 +74,7 @@ public class DictionaryFragment extends Fragment {
         if (words.isEmpty()) {
             return;
         }
-        wordDefinitionRecyclerView.setAdapter(new WordAdapter(context, words));
+        wordDefinitionRecyclerView.setAdapter(new WordAdapter(context, words, getActivity().getSupportFragmentManager()));
         wordDefinitionRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
     }
 }

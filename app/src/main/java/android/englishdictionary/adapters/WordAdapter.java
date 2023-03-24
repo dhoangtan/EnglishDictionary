@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +20,13 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
     private List<Word> words;
     private Context context;
     private LayoutInflater inflater;
+    private FragmentManager fragmentManager;
 
-    public WordAdapter(Context context, List<Word> words) {
+    public WordAdapter(Context context, List<Word> words, FragmentManager fragmentManager) {
         this.words = words;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -38,7 +41,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
         Word current = words.get(position);
         holder.wordTextView.setText(current.getWord());
         holder.phoneticsRecyclerView.setAdapter(new PhoneticAdapter(context, current.getPhonetics()));
-        holder.meaningsRecyclerView.setAdapter(new MeaningAdapter(context, current.getMeanings()));
+        holder.meaningsRecyclerView.setAdapter(new MeaningAdapter(context, current.getMeanings(), fragmentManager));
 
         holder.phoneticsRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL));
     }

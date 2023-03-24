@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "RESPONSE COMPLETE");
                 },
                 error -> {
-                    dictionaryFragment.wordResult(getApplicationContext(), new ArrayList<>());
+                    dictionaryFragment.wordResult(this, new ArrayList<>());
                 });
         queue.add(stringRequest);
     }
