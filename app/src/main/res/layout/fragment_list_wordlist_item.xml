@@ -35,11 +35,12 @@
         android:layout_height="wrap_content"
 
         android:text="@string/word_list_name_example"
-        android:textSize="17sp"
+        android:textSize="15sp"
 
         app:layout_constraintTop_toBottomOf="@id/fr_wordlist_item_linear_layout"
         app:layout_constraintLeft_toLeftOf="@id/fr_wordlist_item_linear_layout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
