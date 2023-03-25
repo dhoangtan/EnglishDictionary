@@ -37,4 +37,5 @@
     <string name="new_word_list">New word lists</string>
     <string name="word_list_name_example">Word list name</string>
     <string name="cambridge_word_lists">Cambridge word lists</string>
+    <string name="create">Create</string>
 </resources>

@@ -1,32 +1,32 @@
 package android.englishdictionary.fragments;
 
+import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.WordListDetailActivity;
 import android.englishdictionary.adapters.ListWordListAdapter;
+import android.englishdictionary.helpers.WordListClickHandler;
 import android.englishdictionary.models.WordList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ExploreFragment extends Fragment {
     private final String TAG = "EXPLORE_FRAGMENT";
-    RecyclerView cambridgeWordListRecyclerView;
+    private RecyclerView cambridgeWordListRecyclerView, userWordListRecyclerView;
     public ExploreFragment() {
     }
 
@@ -48,9 +48,17 @@ public class ExploreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cambridgeWordListRecyclerView = view.findViewById(R.id.fr_explore_cambridge_word_list_recycler_view);
+        cambridgeWordListRecyclerView = view.findViewById(R.id.fr_explore_cambridge_wordlist_recycler_view);
+        userWordListRecyclerView = view.findViewById(R.id.fr_explore_user_wordlist_recycler_view);
 
-        ArrayList<WordList> wordLists = new ArrayList<>();
+        WordListClickHandler eventListener = new WordListClickHandler() {
+            @Override
+            public void onItemClick(WordList wordList) {
+                navigateToWordListDetail(wordList);
+            }
+        };
+
+        ArrayList<WordList> cambridgeWordList = new ArrayList<>();
         FirebaseFirestore.getInstance().collection("word_lists")
                 .whereEqualTo("user_id","system")
                 .get()
@@ -66,10 +74,41 @@ public class ExploreFragment extends Fragment {
                                 WordList.WordListData wordListData = new WordList.WordListData(word, definition);
                                 newWordList.getWords().add(wordListData);
                             }
-                            wordLists.add(newWordList);
+                            cambridgeWordList.add(newWordList);
                         }
-                        cambridgeWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), wordLists));
+                        cambridgeWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), cambridgeWordList, eventListener));
                     }
                 });
+
+
+        ArrayList<WordList> userWordList = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection("word_lists")
+                .whereEqualTo("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            WordList newWordList = new WordList();
+                            newWordList.setName(document.getString("name"));
+                            ArrayList<Map<String, Object>> wordDataFromFireStore = (ArrayList<Map<String, Object>>)document.get("words");
+                            for (Map<String, Object> datum: wordDataFromFireStore) {
+                                String word = datum.get("word").toString();
+                                String definition = datum.get("definition").toString();
+                                WordList.WordListData wordListData = new WordList.WordListData(word, definition);
+                                newWordList.getWords().add(wordListData);
+                            }
+                            userWordList.add(newWordList);
+                        }
+                        userWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), userWordList, eventListener));
+                    }
+                });
+    }
+
+    private void navigateToWordListDetail(WordList wordList) {
+        Intent intent = new Intent(getContext(), WordListDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("word_list", wordList);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
     }
 }

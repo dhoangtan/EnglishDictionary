@@ -1,20 +1,16 @@
 package android.englishdictionary.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.englishdictionary.R;
-import android.englishdictionary.activities.WordListDetailActivity;
-import android.englishdictionary.models.Definition;
-import android.englishdictionary.models.Word;
+import android.englishdictionary.helpers.WordListClickHandler;
 import android.englishdictionary.models.WordList;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,12 +19,12 @@ import java.util.List;
 public class ListWordListAdapter extends RecyclerView.Adapter<ListWordListAdapter.ViewHolder> {
     private List<WordList> wordLists;
     private LayoutInflater inflater;
-    private Context context;
+    private WordListClickHandler eventListener;
 
-    public ListWordListAdapter(Context context, List<WordList> wordLists) {
+    public ListWordListAdapter(Context context, List<WordList> wordLists, WordListClickHandler eventListener) {
         this.wordLists = wordLists;
         inflater = LayoutInflater.from(context);
-        this.context = context;
+        this.eventListener = eventListener;
     }
 
     @NonNull
@@ -45,26 +41,20 @@ public class ListWordListAdapter extends RecyclerView.Adapter<ListWordListAdapte
         holder.wordListNameTextView.setText(current.getName());
         if (current.getWords().size() == 0) {
             holder.wordListPreviewTextView.setText("Word list is empty!");
-            return;
         }
-        StringBuilder preview = new StringBuilder();
-        int wordListSize = wordListData.size();
-        for (int i = 0; i < wordListSize; i++) {
-            if (i == 3)
-                break;
-            preview.append(wordListData.get(i).getWord()).append("\n");
+        else {
+            StringBuilder preview = new StringBuilder();
+            int wordListSize = wordListData.size();
+            for (int i = 0; i < wordListSize; i++) {
+                if (i == 3)
+                    break;
+                preview.append(wordListData.get(i).getWord()).append("\n");
+            }
+            if (wordListSize > 3)
+                preview.append("...+").append(wordListSize - 3);
+            holder.wordListPreviewTextView.setText(preview);
         }
-        if (wordListSize > 3)
-            preview.append("...+").append(wordListSize - 3);
-        holder.wordListPreviewTextView.setText(preview);
-
-        holder.listItemCardView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, WordListDetailActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("word_list", current);
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        });
+        holder.listItemLinearLayout.setOnClickListener(view -> this.eventListener.onItemClick(current));
     }
 
     @Override
@@ -75,13 +65,13 @@ public class ListWordListAdapter extends RecyclerView.Adapter<ListWordListAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView wordListNameTextView;
         TextView wordListPreviewTextView;
-        CardView listItemCardView;
+        LinearLayout listItemLinearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            wordListNameTextView = itemView.findViewById(R.id.fr_word_list_item_name_label);
-            wordListPreviewTextView = itemView.findViewById(R.id.fr_word_list_item_word_list_preview_text_view);
-            listItemCardView = itemView.findViewById(R.id.fr_word_list_item_card_view);
+            wordListNameTextView = itemView.findViewById(R.id.fr_wordlist_item_name_label);
+            wordListPreviewTextView = itemView.findViewById(R.id.fr_wordlist_item_word_list_preview_text_view);
+            listItemLinearLayout = itemView.findViewById(R.id.fr_wordlist_item_linear_layout);
         }
     }
 }

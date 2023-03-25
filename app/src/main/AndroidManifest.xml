@@ -16,9 +16,13 @@
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
         <activity
-            android:name=".activities.WordListDetailActivity"
+            android:name=".activities.CreateWordListActivity"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
+        <activity
+            android:name=".activities.WordListDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false"

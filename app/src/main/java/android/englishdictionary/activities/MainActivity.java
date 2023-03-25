@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 },
                 error -> {
                     dictionaryFragment.wordResult(this, new ArrayList<>());
+                    Toast.makeText(this, "Ooops, We cannot find the word!", Toast.LENGTH_SHORT).show();
                 });
         queue.add(stringRequest);
     }

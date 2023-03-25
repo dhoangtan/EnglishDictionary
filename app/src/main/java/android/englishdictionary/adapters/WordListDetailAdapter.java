@@ -50,7 +50,6 @@ public class WordListDetailAdapter extends RecyclerView.Adapter<WordListDetailAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             wordListDetailWordTextView = itemView.findViewById(R.id.fr_wordlist_detail_word_text_view);
             wordListDetailDefinitionTextView = itemView.findViewById(R.id.fr_wordlist_detail_definition_text_view);
         }

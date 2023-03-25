@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="170dp"
+    android:layout_width="155dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp">
+    android:padding="15dp">
 
-<!--    TODO: Add UI later-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/fr_word_list_item_card_view"
+    <LinearLayout
+        android:id="@+id/fr_wordlist_item_linear_layout"
         android:layout_width="120dp"
         android:layout_height="100dp"
-        android:backgroundTint="#A8B0DA"
+        android:backgroundTint="#3956EF"
         android:background="@drawable/custom_bg_add_wordlist"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:elevation="@dimen/cardview_default_elevation"
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/fr_word_list_item_word_list_preview_text_view"
+            android:id="@+id/fr_wordlist_item_word_list_preview_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="monitor\nauthentic\noverstatement\n...+2"
             android:textSize="15sp"
+            android:textColor="@color/white"
 
             />
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/fr_word_list_item_name_label"
+        android:id="@+id/fr_wordlist_item_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="@string/word_list_name_example"
         android:textSize="17sp"
 
-        app:layout_constraintTop_toBottomOf="@id/fr_word_list_item_card_view"
-        app:layout_constraintLeft_toLeftOf="@id/fr_word_list_item_card_view"
+        app:layout_constraintTop_toBottomOf="@id/fr_wordlist_item_linear_layout"
+        app:layout_constraintLeft_toLeftOf="@id/fr_wordlist_item_linear_layout"
         android:layout_marginTop="10dp"
         />
 
