@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment"
     android:orientation="vertical"
-    android:background="#6750A4">
+    android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@drawable/custom_view_home"
+        android:background="@drawable/bg_rounded_top"
 
         android:padding="20dp">
 
@@ -51,8 +51,8 @@
             android:layout_height="wrap_content"
 
             android:text="@string/my_word_list"
-            android:textSize="25sp"
-            android:textStyle="italic"
+            android:textSize="22sp"
+            android:textStyle="italic|bold"
 
             app:layout_constraintTop_toBottomOf="@+id/fr_home_user_full_name_text_view"
             app:layout_constraintLeft_toLeftOf="@id/fr_home_my_wordlist_section_linear_layout"
@@ -92,79 +92,6 @@
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
                 />
-
         </LinearLayout>
-<!--        <TextView-->
-<!--            android:id="@+id/tv_my_wordList_of_day"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            android:textSize="27sp"-->
-<!--            android:paddingLeft="20dp"-->
-<!--            android:text="Word of the day"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/layout_linear1">-->
-<!--        </TextView>-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/layout_constrain"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            android:background="@drawable/custom_bg_add_wordlist"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tv_my_wordList_of_day"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_marginLeft="20sp"-->
-<!--            android:layout_marginRight="20sp">-->
-<!--            <TextView-->
-<!--                android:id="@+id/tv_text_spelling"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:text="equality"-->
-<!--                android:textStyle="bold"-->
-<!--                android:paddingLeft="20dp"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent">-->
-<!--            </TextView>-->
-<!--            <TextView-->
-<!--                android:id="@+id/tv_text_reading"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textSize="20sp"-->
-<!--                android:text="noun"-->
-<!--                android:paddingLeft="20dp"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_text_spelling">-->
-<!--            </TextView>-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_text_dictionary"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:text="The right of different groups of people to have a similar social position and receive the same treatment"-->
-<!--                android:paddingLeft="20dp"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_text_reading">-->
-<!--            </TextView>-->
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Add to word list"-->
-<!--                android:layout_marginBottom="30dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:textSize="20sp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_text_dictionary"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintRight_toRightOf="parent">-->
-<!--            </Button>-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

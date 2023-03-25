@@ -61,16 +61,18 @@ public class CreateWordListActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         boolean isWordListExists = task.getResult().getDocuments().size() > 0;
                         if(!isWordListExists) {
-                            Intent intent = getIntent();
-                            String word = intent.getExtras().getString("word");
-                            String definition = intent.getExtras().getString("definition");
                             Map<String, Object> data = new HashMap<>();
-
+                            Intent intent = getIntent();
+                            Bundle bundle = intent.getExtras();
                             ArrayList<WordList.WordListData> wordListData = new ArrayList<>();
-                            wordListData.add(new WordList.WordListData(word, definition));
+                            if (bundle != null) {
+                                String word = bundle.getString("word");
+                                String definition = bundle.getString("definition");
+                                wordListData.add(new WordList.WordListData(word, definition));
+                            }
 
                             data.put("name", name);
-                            data.put("user_id", userId );
+                            data.put("user_id", userId);
                             data.put("words", wordListData);
 
                             FirebaseFirestore.getInstance().collection("word_lists")

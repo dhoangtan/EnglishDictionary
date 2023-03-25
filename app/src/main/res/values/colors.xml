@@ -13,4 +13,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="danger">#C30000</color>
     <color name="head_color">#F6BA07</color>
+    <color name="background">#6750A4</color>
 </resources>

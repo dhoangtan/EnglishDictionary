@@ -2,6 +2,7 @@ package android.englishdictionary.fragments;
 
 import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.CreateWordListActivity;
 import android.englishdictionary.activities.WordListDetailActivity;
 import android.englishdictionary.adapters.ListWordListAdapter;
 import android.englishdictionary.helpers.LevelEnum;
@@ -61,6 +62,17 @@ public class HomeFragment extends Fragment {
         userWordListRecyclerView = view.findViewById(R.id.fr_home_user_wordlist_recycler_view);
         createWordListButton = view.findViewById(R.id.fr_home_create_wordlist_button);
 
+
+
+        createWordListButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), CreateWordListActivity.class);
+            getActivity().startActivity(intent);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore
                 .getInstance()
