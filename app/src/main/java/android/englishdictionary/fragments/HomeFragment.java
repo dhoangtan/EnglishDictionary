@@ -62,8 +62,6 @@ public class HomeFragment extends Fragment {
         userWordListRecyclerView = view.findViewById(R.id.fr_home_user_wordlist_recycler_view);
         createWordListButton = view.findViewById(R.id.fr_home_create_wordlist_button);
 
-
-
         createWordListButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity().getApplicationContext(), CreateWordListActivity.class);
             getActivity().startActivity(intent);
@@ -122,6 +120,7 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getContext(), WordListDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("word_list", wordList);
+        bundle.putBoolean("editable", true);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
     }

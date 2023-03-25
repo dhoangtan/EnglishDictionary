@@ -37,4 +37,17 @@
         android:layout_marginTop="5dp"
         />
 
+    <Button
+        android:id="@+id/fr_wordlist_detail_remove_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:background="@drawable/ic_remove_24"
+
+        app:layout_constraintTop_toBottomOf="@id/fr_wordlist_detail_definition_text_view"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:layout_marginTop="10dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

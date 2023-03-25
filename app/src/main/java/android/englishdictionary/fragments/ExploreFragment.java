@@ -51,12 +51,11 @@ public class ExploreFragment extends Fragment {
         cambridgeWordListRecyclerView = view.findViewById(R.id.fr_explore_cambridge_wordlist_recycler_view);
         userWordListRecyclerView = view.findViewById(R.id.fr_explore_user_wordlist_recycler_view);
 
-        WordListClickHandler eventListener = new WordListClickHandler() {
-            @Override
-            public void onItemClick(WordList wordList) {
-                navigateToWordListDetail(wordList);
-            }
-        };
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         ArrayList<WordList> cambridgeWordList = new ArrayList<>();
         FirebaseFirestore.getInstance().collection("word_lists")
@@ -76,7 +75,7 @@ public class ExploreFragment extends Fragment {
                             }
                             cambridgeWordList.add(newWordList);
                         }
-                        cambridgeWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), cambridgeWordList, eventListener));
+                        cambridgeWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), cambridgeWordList, wordList -> navigateToWordListDetail(wordList, false)));
                     }
                 });
 
@@ -99,15 +98,16 @@ public class ExploreFragment extends Fragment {
                             }
                             userWordList.add(newWordList);
                         }
-                        userWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), userWordList, eventListener));
+                        userWordListRecyclerView.setAdapter(new ListWordListAdapter(getContext(), userWordList, wordList -> navigateToWordListDetail(wordList, true)));
                     }
                 });
     }
 
-    private void navigateToWordListDetail(WordList wordList) {
+    private void navigateToWordListDetail(WordList wordList, boolean editable) {
         Intent intent = new Intent(getContext(), WordListDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("word_list", wordList);
+        bundle.putBoolean("editable", editable);
         intent.putExtras(bundle);
         getActivity().startActivity(intent);
     }

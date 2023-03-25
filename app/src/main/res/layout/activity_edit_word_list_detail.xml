@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/ac_edit_wordlist_detail_wordlist_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="My word list"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/ac_edit_wordlist_detail_functional_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_wordlist_detail_wordlist_name_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:layout_marginTop="20dp"
+        >
+
+        <Button
+            android:id="@+id/ac_edit_wordlist_detail_confirm_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_check_24"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/ac_edit_wordlist_detail_cancel_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_clear_24"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+
+        <Button
+            android:id="@+id/ac_edit_wordlist_detail_remove_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_delete_24"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ac_edit_wordlist_detail_words_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        app:layout_constraintTop_toBottomOf="@id/ac_edit_wordlist_detail_functional_section"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
