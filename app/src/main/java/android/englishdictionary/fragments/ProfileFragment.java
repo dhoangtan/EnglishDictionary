@@ -1,7 +1,9 @@
 package android.englishdictionary.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.englishdictionary.R;
 import android.englishdictionary.activities.EditProfileActivity;
 import android.englishdictionary.activities.LoginActivity;
@@ -164,6 +166,11 @@ public class ProfileFragment extends Fragment {
         });
 
         signOutButton.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DictionaryPreferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
             startActivity(intent);

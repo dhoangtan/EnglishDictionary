@@ -3,7 +3,9 @@ package android.englishdictionary.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.englishdictionary.R;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         createAccountTextView = findViewById(R.id.ac_login_create_account_text_view);
         forgotPasswordTextView = findViewById(R.id.ac_login_forgot_password_text_view);
 
+        SharedPreferences sharedPref = this.getSharedPreferences("DictionaryPreferences", Context.MODE_PRIVATE);
+
         forgotPasswordTextView.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
             startActivity(intent);
@@ -47,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(view -> {
             String email, password;
+
             email = usernameEditText.getText().toString();
             password = passwordEditText.getText().toString();
 
@@ -60,28 +65,45 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "signInWithEmail:success");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username", email);
+            editor.putString("password", password);
+            editor.commit();
+
+            authenticate(email, password);
 
         });
+
+        String email = sharedPref.getString("username", "");
+        String password = sharedPref.getString("password", "");
+
+        if (!email.isEmpty() && !password.isEmpty()) {
+            authenticate(email, password);
+        }
 
         createAccountTextView.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void authenticate(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInWithEmail:success");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 }
