@@ -87,7 +87,6 @@ public class ChooseWordListBottomSheetFragment extends BottomSheetDialogFragment
                             public void onItemClick(WordList wordList) {
                                 wordList.getWords().add(new WordList.WordListData(word.getWord(), definition));
                                 updateWordList(wordList);
-                                dismiss();
                             }
                         });
                         wordListRecyclerView.setAdapter(adapter);
@@ -138,8 +137,9 @@ public class ChooseWordListBottomSheetFragment extends BottomSheetDialogFragment
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(getContext(), "Successfully add to word list", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "onComplete: COMPLETE");
+                                        Toast.makeText(getContext(), "Successfully add to word list", Toast.LENGTH_SHORT).show();
+                                        dismiss();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
