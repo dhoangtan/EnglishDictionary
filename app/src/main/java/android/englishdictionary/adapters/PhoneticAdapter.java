@@ -61,12 +61,11 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
             phoneticTextView = itemView.findViewById(R.id.fr_definition_phonetic_item_phonetic_text_view);
             playAudioButton = itemView.findViewById(R.id.fr_definition_phonetic_item_play_audio_button);
 
+            if (audio.isEmpty())
+                playAudioButton.setEnabled(false);
+
             // TODO: Implement play audio feature
             playAudioButton.setOnClickListener(view -> {
-                if (audio.isEmpty()) {
-                    Toast.makeText(context, "Oops, We do not have the audio for this phonetics :(", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
