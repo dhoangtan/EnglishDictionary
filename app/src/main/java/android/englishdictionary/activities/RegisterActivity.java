@@ -95,6 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPassword = confirmPasswordTextInput.getText().toString();
         fullName = fullNameTextInput.getText().toString();
 
+        clearFocus();
+
         if (!validateField(email, password, confirmPassword, fullName)) {
             return;
         }
@@ -143,6 +145,13 @@ public class RegisterActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    private void clearFocus() {
+        usernameTextInput.clearFocus();
+        passwordTextInput.clearFocus();
+        confirmPasswordTextInput.clearFocus();
+        fullNameTextInput.clearFocus();
     }
 
     private void clearError(TextInputLayout view) {
