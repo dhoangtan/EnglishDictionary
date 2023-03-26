@@ -8,25 +8,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.englishdictionary.R;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText usernameEditText, passwordEditText;
     private Button loginButton;
     private TextView createAccountTextView, forgotPasswordTextView;
-    FirebaseAuth mAuth;
+    private TextInputLayout usernameTextInputLayout, passwordTextInputLayout;
+    private TextInputEditText usernameTextInputEditText, passwordTextInputEditText;
+    private boolean isPasswordVisible;
+    private FirebaseAuth mAuth;
+    private SharedPreferences sharedPref;
     private final String TAG = "LOGIN";
 
     @Override
@@ -35,14 +41,34 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        sharedPref = this.getSharedPreferences("DictionaryPreferences", Context.MODE_PRIVATE);
 
-        usernameEditText = findViewById(R.id.ac_login_username_edit_text);
-        passwordEditText = findViewById(R.id.ac_login_password_edit_text);
         loginButton = findViewById(R.id.ac_login_login_button);
         createAccountTextView = findViewById(R.id.ac_login_create_account_text_view);
         forgotPasswordTextView = findViewById(R.id.ac_login_forgot_password_text_view);
+        usernameTextInputLayout = findViewById(R.id.ac_login_username_text_input_layout);
+        usernameTextInputEditText = findViewById(R.id.ac_login_username_text_input_edit_text);
+        passwordTextInputEditText = findViewById(R.id.ac_login_password_text_input_edit_text);
+        passwordTextInputLayout = findViewById(R.id.ac_login_password_text_input_layout);
+        isPasswordVisible = false;
 
-        SharedPreferences sharedPref = this.getSharedPreferences("DictionaryPreferences", Context.MODE_PRIVATE);
+
+        usernameTextInputEditText.setOnFocusChangeListener((view, hasFocus) -> usernameTextInputLayout.setError(null));
+
+        passwordTextInputEditText.setOnFocusChangeListener((view, hasFocus) -> passwordTextInputLayout.setError(null));
+
+        passwordTextInputLayout.setEndIconOnClickListener(view -> {
+            if (!isPasswordVisible) {
+                passwordTextInputEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                passwordTextInputLayout.setEndIconDrawable(R.drawable.ic_visibility_off_24);
+                isPasswordVisible = true;
+            }
+            else {
+                passwordTextInputEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                passwordTextInputLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
+                isPasswordVisible = false;
+            }
+        });
 
         forgotPasswordTextView.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
@@ -50,25 +76,30 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loginButton.setOnClickListener(view -> {
+            passwordTextInputEditText.clearFocus();
+            usernameTextInputEditText.clearFocus();
+
             String email, password;
 
-            email = usernameEditText.getText().toString();
-            password = passwordEditText.getText().toString();
+            email = usernameTextInputEditText.getText().toString();
+            password = passwordTextInputEditText.getText().toString();
+
+            boolean isInformationValid = true;
 
             if (TextUtils.isEmpty(email)) {
-                Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
-                return;
+                usernameTextInputLayout.setError("Email is empty!");
+                isInformationValid = false;
             }
 
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                return;
+                passwordTextInputLayout.setError("Password is empty");
+                isInformationValid = false;
             }
 
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("username", email);
-            editor.putString("password", password);
-            editor.commit();
+            if(!isInformationValid)
+                return;
+
+
 
             authenticate(email, password);
 
@@ -93,14 +124,16 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithEmail:success");
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("username", email);
+                            editor.putString("password", password);
+                            editor.commit();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
+                            passwordTextInputLayout.setError("Password is wrong");
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

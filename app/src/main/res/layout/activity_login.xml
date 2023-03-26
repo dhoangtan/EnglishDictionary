@@ -20,71 +20,60 @@
         android:textAllCaps="true"
 
 
-        app:layout_constraintBottom_toTopOf="@id/ac_login_username_label"
+        app:layout_constraintBottom_toTopOf="@id/ac_login_username_text_input_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="50dp"
         />
 
-    <TextView
-        android:id="@+id/ac_login_username_label"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ac_login_username_text_input_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="@string/username"
-        android:textSize="20sp"
+        android:hint="@string/username"
+        app:startIconDrawable="@drawable/ic_person_24"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
 
         android:layout_marginTop="250dp"
-        />
+        >
 
-    <EditText
-        android:id="@+id/ac_login_username_edit_text"
-        android:layout_width="250dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ac_login_username_text_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textSize="20sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ac_login_password_text_input_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/password"
+        app:startIconDrawable="@drawable/ic_lock_24"
+        app:endIconDrawable="@drawable/ic_visibility_on_24"
+        app:endIconMode="custom"
 
-        android:hint="@string/example_username"
-        android:autofillHints="emailAddress"
-        android:maxLines="1"
-        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/ac_login_username_text_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
 
-        app:layout_constraintTop_toTopOf="@id/ac_login_username_label"
-        app:layout_constraintBottom_toBottomOf="@id/ac_login_username_label"
-        app:layout_constraintLeft_toRightOf="@id/ac_login_username_label"
-
-        android:layout_marginStart="30dp"
-        />
-
-
-    <TextView
-        android:id="@+id/ac_login_password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="@string/password"
-        android:textSize="20sp"
-
-        app:layout_constraintTop_toBottomOf="@id/ac_login_username_label"
-        app:layout_constraintBottom_toBottomOf="@id/ac_login_password_edit_text"
-        app:layout_constraintLeft_toLeftOf="@id/ac_login_username_label"
-
-        android:layout_marginTop="30dp"
-        />
-
-    <EditText
-        android:id="@+id/ac_login_password_edit_text"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-
-        android:maxLines="1"
-        android:inputType="textWebPassword"
-
-        app:layout_constraintTop_toBottomOf="@id/ac_login_username_edit_text"
-        app:layout_constraintLeft_toLeftOf="@id/ac_login_username_edit_text"
         android:layout_marginTop="20dp"
-        />
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ac_login_password_text_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="textWebPassword"
+
+            android:textSize="20sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/ac_login_login_button"
@@ -127,7 +116,7 @@
         android:textStyle="italic"
         android:textAlignment="center"
 
-        app:layout_constraintTop_toBottomOf="@id/ac_login_password_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/ac_login_password_text_input_layout"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="15dp"/>
 
