@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
 
             android:text="@string/welcome"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="15sp"
             android:textAllCaps="true"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+
+            android:layout_marginStart="40dp"
             />
 
         <TextView
@@ -38,11 +38,11 @@
 
             android:text="@string/example_full_name"
             android:textSize="27sp"
+            android:textStyle="bold|italic"
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/fr_home_welcome_title"
             app:layout_constraintTop_toBottomOf="@+id/fr_home_welcome_title"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             />
 
         <TextView
@@ -56,14 +56,30 @@
 
             app:layout_constraintTop_toBottomOf="@+id/fr_home_user_full_name_text_view"
             app:layout_constraintLeft_toLeftOf="@id/fr_home_my_wordlist_section_linear_layout"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/fr_home_user_image_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:src="@drawable/avatar"
+            android:scaleType="centerCrop"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+
+            app:layout_constraintTop_toTopOf="@id/fr_home_welcome_title"
+            app:layout_constraintBottom_toBottomOf="@id/fr_home_user_full_name_text_view"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:layout_marginEnd="40dp"/>
 
         <LinearLayout
             android:id="@+id/fr_home_my_wordlist_section_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_bg_create_word_list"
+            android:background="@drawable/bg_rounded_corners"
+            style="@style/Theme.Material3.Dark.Dialog.Alert"
             android:gravity="center"
 
             android:orientation="vertical"

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
-    android:background="@drawable/custom_bg_add_wordlist"
+    android:background="@drawable/bg_rounded_corners"
     android:backgroundTint="#A6B8D3"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp">

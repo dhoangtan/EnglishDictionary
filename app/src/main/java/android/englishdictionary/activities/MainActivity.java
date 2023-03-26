@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private ActionBar toolbar;
     private RequestQueue queue;
+    private BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         requestForPermission();
 
         toolbar = getSupportActionBar();
-        BottomNavigationView navigationView = findViewById(R.id.ac_main_bottom_navigation);
+        navigationView = findViewById(R.id.ac_main_bottom_navigation);
         navigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar.setTitle("Home");
         loadFragment(new HomeFragment());
@@ -142,12 +143,16 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.ac_main_frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void setBottomNavigationSelectedItem(int resId) {
+        navigationView.setSelectedItemId(resId);
     }
 
     void requestForPermission() {

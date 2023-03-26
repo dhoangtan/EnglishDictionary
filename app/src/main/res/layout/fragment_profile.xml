@@ -14,12 +14,13 @@
         android:layout_height="match_parent"
         android:padding="20dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/fr_profile_user_avatar_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
 
             android:scaleType="centerCrop"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

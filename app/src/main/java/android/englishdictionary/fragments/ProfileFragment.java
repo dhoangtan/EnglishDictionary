@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment {
         userGenderImageView = view.findViewById(R.id.fr_profile_user_gender_image_view);
         editProfileButton = view.findViewById(R.id.fr_profile_user_edit_profile_button);
         signOutButton = view.findViewById(R.id.fr_profile_user_sign_out_button);
+
+        userAvatarImageView.setClipToOutline(true);
     }
 
     @Override
