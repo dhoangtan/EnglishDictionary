@@ -41,4 +41,5 @@
     <string name="welcome">Welcome</string>
     <string name="community_word_list">Community word list</string>
     <string name="search_result">Search Result</string>
+    <string name="search_for_word">Search for word</string>
 </resources>

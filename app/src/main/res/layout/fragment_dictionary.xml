@@ -15,46 +15,29 @@
         android:padding="10dp"
         >
 
-        <LinearLayout
-            android:id="@+id/fr_dictionary_top_bar"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fr_dictionary_search_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="13"
+
+            app:startIconDrawable="@drawable/ic_camera_24"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_search_24"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             >
 
-            <Button
-                android:id="@+id/fr_dictionary_open_camera_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="0.1"
-                android:background="@drawable/ic_camera_24"
-                android:layout_gravity="center"/>
-
-            <EditText
-                android:id="@+id/fr_dictionary_word_edit_text"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fr_dictionary_search_text_input"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/search_for_word"
+                android:textSize="15sp"/>
 
-                android:maxLines="1"
-                android:inputType="text"
-
-                android:textSize="20sp"
-                android:layout_weight="12.8"/>
-
-            <Button
-                android:id="@+id/fr_dictionary_search_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="0.11"
-                android:background="@drawable/ic_search_24"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fr_dictionary_list_word_definition_list_view"
@@ -64,7 +47,7 @@
             tools:listitem="@layout/fragment_definition_word_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-            app:layout_constraintTop_toBottomOf="@id/fr_dictionary_top_bar"
+            app:layout_constraintTop_toBottomOf="@id/fr_dictionary_search_text_layout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 

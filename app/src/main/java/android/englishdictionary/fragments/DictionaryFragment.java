@@ -11,8 +11,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,14 +18,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.List;
 import java.util.Locale;
 
 public class DictionaryFragment extends Fragment {
 
-    private Button openCameraButton;
-    private Button searchButton;
-    private EditText wordEditText;
+    private TextInputEditText wordTextInput;
+    private TextInputLayout wordTextLayout;
     private RecyclerView wordDefinitionRecyclerView;
 
     public DictionaryFragment() {
@@ -52,21 +52,20 @@ public class DictionaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        openCameraButton = view.findViewById(R.id.fr_dictionary_open_camera_button);
-        searchButton = view.findViewById(R.id.fr_dictionary_search_button);
-        wordEditText = view.findViewById(R.id.fr_dictionary_word_edit_text);
+        wordTextLayout = view.findViewById(R.id.fr_dictionary_search_text_layout);
+        wordTextInput = view.findViewById(R.id.fr_dictionary_search_text_input);
         wordDefinitionRecyclerView = view.findViewById(R.id.fr_dictionary_list_word_definition_list_view);
 
 
-        openCameraButton.setOnClickListener(v -> {
+        wordTextLayout.setStartIconOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             getActivity().startActivityForResult(intent, MainActivity.CAMERA_CODE);
         });
 
-        searchButton.setOnClickListener(v -> {
-            String word = wordEditText.getText().toString().toLowerCase(Locale.ROOT).trim();
+        wordTextLayout.setEndIconOnClickListener(v -> {
+            String word = wordTextInput.getText().toString().toLowerCase(Locale.ROOT).trim();
             ((MainActivity)getActivity()).searchForWord(word);
-            wordEditText.setText("");
+            wordTextInput.setText("");
         });
     }
 

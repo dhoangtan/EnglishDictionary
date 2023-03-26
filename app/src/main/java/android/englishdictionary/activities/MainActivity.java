@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchForWord(String word) {
+        if (word.isEmpty())
+            return;
         String url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
         DictionaryFragment dictionaryFragment = (DictionaryFragment) getSupportFragmentManager().findFragmentById(R.id.ac_main_frame_container);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
