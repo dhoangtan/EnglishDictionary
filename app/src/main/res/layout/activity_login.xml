@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username"
-        app:startIconDrawable="@drawable/ic_person_24"
+        app:startIconDrawable="@drawable/ic_email_24"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -43,6 +43,8 @@
             android:id="@+id/ac_login_username_text_input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            android:maxLines="1"
 
             android:textSize="20sp"/>
 
@@ -70,6 +72,7 @@
             android:layout_height="wrap_content"
 
             android:inputType="textWebPassword"
+            android:maxLines="1"
 
             android:textSize="20sp"/>
 
