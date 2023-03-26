@@ -2,6 +2,7 @@ package android.englishdictionary.fragments;
 
 import android.content.Intent;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.SearchResultActivity;
 import android.englishdictionary.activities.WordListDetailActivity;
 import android.englishdictionary.adapters.ListWordListAdapter;
 import android.englishdictionary.models.WordList;
@@ -15,20 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class ExploreFragment extends Fragment {
     private final String TAG = "EXPLORE_FRAGMENT";
     private RecyclerView cambridgeWordListRecyclerView, userWordListRecyclerView, communityWordListRecyclerView;
+    private TextInputLayout searchTextInputLayout;
+    private TextInputEditText searchTextInputEditText;
     public ExploreFragment() {
     }
 
@@ -53,11 +57,25 @@ public class ExploreFragment extends Fragment {
         cambridgeWordListRecyclerView = view.findViewById(R.id.fr_explore_cambridge_wordlist_recycler_view);
         userWordListRecyclerView = view.findViewById(R.id.fr_explore_user_wordlist_recycler_view);
         communityWordListRecyclerView = view.findViewById(R.id.fr_explore_community_wordlist_recycler_view);
+        searchTextInputLayout = view.findViewById(R.id.fr_explore_search_text_input_layout);
+        searchTextInputEditText = view.findViewById(R.id.fr_explore_search_text_input_edit_text);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        searchTextInputLayout.setEndIconOnClickListener(view -> {
+            String searchString = searchTextInputEditText.getText().toString();
+
+            if(searchString.isEmpty())
+                return;
+
+            Intent intent = new Intent(getContext(), SearchResultActivity.class);
+            intent.putExtra("search_string", searchString);
+            getActivity().startActivity(intent);
+        });
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         ArrayList<WordList> userWordList = new ArrayList<>();
