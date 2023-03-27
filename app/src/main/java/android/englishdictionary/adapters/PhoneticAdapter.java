@@ -61,7 +61,7 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticAdapter.ViewHo
             phoneticTextView = itemView.findViewById(R.id.fr_definition_phonetic_item_phonetic_text_view);
             playAudioButton = itemView.findViewById(R.id.fr_definition_phonetic_item_play_audio_button);
 
-            if (audio.isEmpty())
+            if (audio != null && !audio.isEmpty())
                 playAudioButton.setEnabled(false);
 
             // TODO: Implement play audio feature
