@@ -29,8 +29,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,7 +37,6 @@ import org.tensorflow.lite.task.core.BaseOptions;
 import org.tensorflow.lite.task.vision.detector.Detection;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;

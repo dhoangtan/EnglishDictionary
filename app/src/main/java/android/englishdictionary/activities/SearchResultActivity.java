@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -29,21 +30,23 @@ public class SearchResultActivity extends AppCompatActivity {
 
         ArrayList<WordList> userWordList = new ArrayList<>();
         FirebaseFirestore.getInstance().collection("word_lists")
-                .whereEqualTo("name", searchString)
                 .get()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         for (DocumentSnapshot document : task.getResult()) {
-                            WordList newWordList = new WordList();
-                            newWordList.setName(document.getString("name"));
-                            ArrayList<Map<String, Object>> wordDataFromFireStore = (ArrayList<Map<String, Object>>)document.get("words");
-                            for (Map<String, Object> datum: wordDataFromFireStore) {
-                                String word = datum.get("word").toString();
-                                String definition = datum.get("definition").toString();
-                                WordList.WordListData wordListData = new WordList.WordListData(word, definition);
-                                newWordList.getWords().add(wordListData);
+                            String wordListName = document.getString("name");
+                            if (wordListName.equalsIgnoreCase(searchString) || wordListName.toLowerCase(Locale.ROOT).contains(searchString.toLowerCase(Locale.ROOT))) {
+                                WordList newWordList = new WordList();
+                                newWordList.setName(document.getString("name"));
+                                ArrayList<Map<String, Object>> wordDataFromFireStore = (ArrayList<Map<String, Object>>)document.get("words");
+                                for (Map<String, Object> datum: wordDataFromFireStore) {
+                                    String word = datum.get("word").toString();
+                                    String definition = datum.get("definition").toString();
+                                    WordList.WordListData wordListData = new WordList.WordListData(word, definition);
+                                    newWordList.getWords().add(wordListData);
+                                }
+                                userWordList.add(newWordList);
                             }
-                            userWordList.add(newWordList);
                         }
                         searchResultRecyclerView.setAdapter(new ListWordListAdapter(SearchResultActivity.this, userWordList, wordList -> {
                             Intent intent = new Intent(SearchResultActivity.this, WordListDetailActivity.class);
