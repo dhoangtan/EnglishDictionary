@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.englishdictionary.R;
 import android.englishdictionary.models.ApplicationUser;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,10 +33,10 @@ import java.util.ArrayList;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    EditText userFullNameEditText;
-    RadioGroup userGenderRadioGroup, userLevelRadioGroup, userOccupationRadioGroup;
-    Button saveButton, cancelButton;
-    ArrayList<RadioButton> activityRadioButtons;
+    private EditText userFullNameEditText;
+    private RadioGroup userGenderRadioGroup, userLevelRadioGroup, userOccupationRadioGroup;
+    private Button saveButton, cancelButton;
+    private ArrayList<RadioButton> activityRadioButtons;
 
     private final int GENDER_RADIO_BUTTON_ID = 10;
     private final int LEVEL_RADIO_BUTTON_ID = 20;

@@ -39,9 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText usernameTextInput, passwordTextInput, confirmPasswordTextInput, fullNameTextInput;
     private TextInputLayout usernameTextLayout, passwordTextLayout, confirmPasswordTextLayout, fullNameTextLayout;
     private Button registerButton;
-
     private Boolean isPasswordVisible;
-
     private FirebaseAuth mAuth;
     private FirebaseFirestore fireStore;
     private final String TAG = "REGISTER";

@@ -1,10 +1,10 @@
 package android.englishdictionary.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.englishdictionary.R;
+import android.englishdictionary.activities.ChangePasswordActivity;
 import android.englishdictionary.activities.EditProfileActivity;
 import android.englishdictionary.activities.LoginActivity;
 import android.englishdictionary.activities.MainActivity;
@@ -28,10 +28,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,7 +45,7 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
     private ImageView userAvatarImageView, userGenderImageView;
     private TextView userFullNameTextView, userEmailTextView, userLevelTextView, userOccupationTextView;
-    private Button editProfileButton, signOutButton;
+    private Button editProfileButton, signOutButton, changePasswordButton;
     private ApplicationUser appUser;
     // TODO: Rename and change types of parameters
 
@@ -81,6 +79,7 @@ public class ProfileFragment extends Fragment {
         userGenderImageView = view.findViewById(R.id.fr_profile_user_gender_image_view);
         editProfileButton = view.findViewById(R.id.fr_profile_user_edit_profile_button);
         signOutButton = view.findViewById(R.id.fr_profile_user_sign_out_button);
+        changePasswordButton = view.findViewById(R.id.fr_profile_user_change_password_button);
 
         userAvatarImageView.setClipToOutline(true);
     }
@@ -177,6 +176,11 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
+        });
+
+        changePasswordButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), ChangePasswordActivity.class);
+            getActivity().startActivity(intent);
         });
     }
 

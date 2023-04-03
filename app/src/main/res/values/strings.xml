@@ -42,4 +42,7 @@
     <string name="community_word_list">Community word list</string>
     <string name="search_result">Search Result</string>
     <string name="search_for_word">Search for word</string>
+    <string name="change_password">Change password</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
 </resources>

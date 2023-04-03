@@ -140,15 +140,30 @@
 
             android:text="@string/edit_profile"
             android:textSize="17sp"
-            android:textAllCaps="true"
 
 
             app:layout_constraintTop_toBottomOf="@id/fr_profile_user_email_text_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/fr_profile_user_change_password_button"
             android:layout_marginTop="40dp"
             />
+
+
+        <Button
+            android:id="@+id/fr_profile_user_change_password_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/change_password"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+
+            app:layout_constraintTop_toTopOf="@id/fr_profile_user_edit_profile_button"
+            app:layout_constraintBottom_toBottomOf="@id/fr_profile_user_edit_profile_button"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/fr_profile_user_edit_profile_button"/>
+
 
         <Button
             android:id="@+id/fr_profile_user_sign_out_button"
@@ -161,8 +176,8 @@
             android:backgroundTint="@color/danger"
 
             app:layout_constraintTop_toBottomOf="@id/fr_profile_user_edit_profile_button"
-            app:layout_constraintRight_toRightOf="@id/fr_profile_user_edit_profile_button"
-            app:layout_constraintLeft_toLeftOf="@id/fr_profile_user_edit_profile_button"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="30dp"
             />
 
