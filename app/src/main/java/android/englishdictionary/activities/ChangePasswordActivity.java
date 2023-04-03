@@ -1,6 +1,5 @@
 package android.englishdictionary.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -12,12 +11,9 @@ import android.text.InputType;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +24,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private TextInputEditText currentPasswordTextInput, newPasswordTextInput, confirmPasswordTextInput;
     private Button confirmButton, cancelButton;
     private SharedPreferences sharedPref;
-    private Boolean isPasswordVisible;
+    private Boolean isCurrentPasswordVisible, isNewPasswordVisible, isConfirmPasswordVisible;
 
 
     @Override
@@ -48,11 +44,22 @@ public class ChangePasswordActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.ac_change_password_cancel_button);
 
         sharedPref = this.getSharedPreferences("DictionaryPreferences", Context.MODE_PRIVATE);
-        isPasswordVisible = false;
+        isCurrentPasswordVisible = false;
+        isNewPasswordVisible = false;
+        isConfirmPasswordVisible = false;
 
-        currentPasswordTextLayout.setEndIconOnClickListener(view -> changeVisiblePassword());
-        newPasswordTextLayout.setEndIconOnClickListener(view -> changeVisiblePassword());
-        confirmPasswordTextLayout.setEndIconOnClickListener(view -> changeVisiblePassword());
+        currentPasswordTextLayout.setEndIconOnClickListener(view -> {
+            isCurrentPasswordVisible = !isCurrentPasswordVisible;
+            changeVisiblePassword();
+        });
+        newPasswordTextLayout.setEndIconOnClickListener(view -> {
+            isNewPasswordVisible = !isNewPasswordVisible;
+            changeVisiblePassword();
+        });
+        confirmPasswordTextLayout.setEndIconOnClickListener(view -> {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
+            changeVisiblePassword();
+        });
 
         currentPasswordTextInput.setOnFocusChangeListener(((view, b) -> clearError(currentPasswordTextLayout)));
         newPasswordTextInput.setOnFocusChangeListener(((view, b) -> clearError(newPasswordTextLayout)));
@@ -105,29 +112,29 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void changeVisiblePassword() {
-        if (!isPasswordVisible) {
+        if (isCurrentPasswordVisible) {
             currentPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT);
             currentPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_off_24);
-
+        } else {
+            currentPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            currentPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
+        }
+        if (isNewPasswordVisible) {
             newPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT);
             newPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_off_24);
 
+        } else {
+            newPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            newPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
+        }
+
+        if (isConfirmPasswordVisible) {
             confirmPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT);
             confirmPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_off_24);
 
-            isPasswordVisible = true;
-        }
-        else {
-            currentPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            currentPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
-
-            newPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            newPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
-
+        } else {
             confirmPasswordTextInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             confirmPasswordTextLayout.setEndIconDrawable(R.drawable.ic_visibility_on_24);
-
-            isPasswordVisible = false;
         }
     }
 
@@ -142,7 +149,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword(String currentPassword, String newPassword, String confirmPassword) {
-       boolean isValid = true;
+        boolean isValid = true;
 
         String userOldPassword = sharedPref.getString("password", "");
 
@@ -167,6 +174,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
             isValid = false;
         }
 
-       return isValid;
+        return isValid;
     }
 }
